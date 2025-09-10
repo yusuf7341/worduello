@@ -408,6 +408,8 @@ button:hover, #restart-normal:hover { background: var(--accent-dark);}
 .row {
   display: flex;
   justify-content: center;
+  align-items: flex-start;
+  position: relative;
 }
 .match-feedback {
   font-size: 1em;
@@ -526,12 +528,226 @@ button:hover, #restart-normal:hover { background: var(--accent-dark);}
   font-family: inherit;
   font-weight: 600;
   cursor: pointer;
-  margin: 8px auto 0 auto;
+  margin: 0;
   box-shadow: 0 1px 6px #0002;
   transition: background 0.16s;
   display: inline-block;
 }
 #giveup-btn:hover { background: #bb1b1b; }
+.switch-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 15px;
+  margin-top: 5px;
+}
+.switch-label {
+  font-family: 'Montserrat', Arial, sans-serif;
+  font-size: 1.08em;
+  color: var(--fg);
+  margin-bottom: 6px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  user-select: none;
+}
+.switch-toggle {
+  position: relative;
+  display: inline-block;
+  width: 52px;
+  height: 28px;
+}
+.switch-toggle input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.switch-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: var(--tile-gray);
+  transition: .2s;
+  border-radius: 20px;
+}
+.switch-slider:before {
+  position: absolute;
+  content: "";
+  height: 21px;
+  width: 21px;
+  left: 4px;
+  bottom: 3.5px;
+  background: #fff;
+  transition: .2s;
+  border-radius: 50%;
+  box-shadow: 0 1px 3px #0003;
+}
+.switch-toggle input:checked + .switch-slider {
+  background: var(--accent);
+}
+.switch-toggle input:checked + .switch-slider:before {
+  transform: translateX(24px);
+}
+.meaning-icon {
+  display: inline-block;
+  position: relative;
+  top: -8px;
+  left: 2px;
+  width: 18px;
+  height: 18px;
+  background: none;
+  color: var(--accent-dark);
+  font-weight: bold;
+  font-size: 1.11em;
+  border: none;
+  cursor: pointer;
+  margin-left: 4px;
+  vertical-align: top;
+  transition: color 0.18s, background 0.18s;
+  outline: none;
+}
+.meaning-icon:hover {
+  color: #f3c237;
+}
+@media (max-width: 600px) {
+  .meaning-icon {
+    width: 14px;
+    height: 14px;
+    font-size: 0.93em;
+    top: -4px;
+  }
+}
+#word-meaning-modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0; top: 0; width: 100%; height: 100%;
+  background: var(--modal-bg);
+  align-items: center;
+  justify-content: center;
+}
+#word-meaning-modal .modal-content {
+  background: var(--tile-bg);
+  margin: 32px auto;
+  padding: 19px 15px 15px 15px;
+  border-radius: 13px;
+  box-shadow: var(--shadow);
+  width: 92vw;
+  max-width: 380px;
+  position: relative;
+  min-height: 60px;
+  color: var(--fg);
+  font-size: 1.04em;
+  line-height: 1.5;
+}
+#word-meaning-modal .close {
+  color: var(--accent-dark);
+  position: absolute;
+  top: 10px;
+  right: 18px;
+  font-size: 1.6em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: color 0.17s;
+  z-index: 3;
+}
+#word-meaning-modal .close:hover {
+  color: #f43b3b;
+}
+.keyboard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  margin: 10px 0 4px 0;
+}
+.keyboard-row {
+  display: flex;
+  gap: 5px;
+  justify-content: center;
+}
+.keyboard-key {
+  min-width: 27px;
+  height: 36px;
+  border-radius: 6px;
+  font-size: 1em;
+  font-family: 'Montserrat', Arial, sans-serif;
+  font-weight: 700;
+  background: var(--tile-bg);
+  color: var(--fg);
+  border: 1.5px solid var(--tile-border);
+  box-shadow: 0 1px 5px #0001;
+  outline: none;
+  margin: 0;
+  padding: 0;
+  cursor: default;
+  user-select: none;
+  transition: background 0.18s, color 0.18s, border 0.18s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.keyboard-key.green {
+  background: linear-gradient(145deg, #01b41b 55%, #2cc74f 100%);
+  color: #fff;
+  border: 2px solid #2cc74f;
+  text-shadow: 0 1px 6px #0003;
+}
+.keyboard-key.yellow {
+  background: linear-gradient(145deg, #b19700 55%, #fedf4a 100%);
+  color: #fffbea;
+  border: 2px solid #fedf4a;
+  text-shadow: 0 1px 5px #0002;
+}
+.keyboard-key.gray {
+  background: linear-gradient(145deg, #444 60%, #222 100%);
+  color: #f1f1f1;
+  border: 2px solid #444;
+  text-shadow: 0 1px 4px #0007;
+  opacity: 0.93;
+}
+.keyboard-controls-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 10px 0;
+}
+#toggle-keyboard-btn {
+  background: var(--accent);
+  color: #fff;
+  padding: 8px 14px;
+  border-radius: 9px;
+  border: none;
+  font-size: 1em;
+  font-family: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  margin: 0;
+  box-shadow: 0 1px 6px #0002;
+  transition: background 0.16s;
+  display: inline-block;
+}
+#toggle-keyboard-btn:hover { background: var(--accent-dark);}
+@media (max-width: 600px) {
+  .keyboard-key {
+    min-width: 18px;
+    height: 27px;
+    font-size: 0.81em;
+    border-radius: 4px;
+    padding: 0;
+  }
+  .keyboard {
+    gap: 2px;
+  }
+  .keyboard-row {
+    gap: 2px;
+  }
+  #toggle-keyboard-btn {
+    font-size: 0.89em;
+    padding: 6px 10px;
+  }
+}
   </style>
 </head>
 <body>
@@ -541,6 +757,14 @@ button:hover, #restart-normal:hover { background: var(--accent-dark);}
     <button id="theme-toggle" title="Koyu/Açık Tema">🌙</button>
     <button id="show-bracket" style="display:none;">Turlar</button>
   </div>
+</div>
+<!-- Ana ekranda offline switch -->
+<div id="offline-switch-area" class="switch-container">
+  <span class="switch-label">Offline Mod</span>
+  <label class="switch-toggle">
+    <input type="checkbox" id="offline-toggle">
+    <span class="switch-slider"></span>
+  </label>
 </div>
 <div id="main-menu">
   <button id="menu-match" class="menu-btn">Maç</button>
@@ -604,6 +828,13 @@ button:hover, #restart-normal:hover { background: var(--accent-dark);}
     </div>
   </div>
 </div>
+<div id="word-meaning-modal">
+  <div class="modal-content">
+    <span class="close" id="word-meaning-close">&times;</span>
+    <h2 id="word-meaning-title" style="margin:0 0 12px 0;font-size:1.17em;color:var(--accent-dark);"></h2>
+    <div id="word-meaning-content"></div>
+  </div>
+</div>
 <script>
 const themeToggle = document.getElementById("theme-toggle");
 const root = document.documentElement;
@@ -618,6 +849,20 @@ themeToggle.onclick = () => {
 };
 setTheme(localStorage.getItem("theme") || "light");
 themeToggle.textContent = root.getAttribute("data-theme") === "dark" ? "☀️" : "🌙";
+
+let offlineMode = false;
+const offlineSwitchArea = document.getElementById("offline-switch-area");
+const offlineToggle = document.getElementById("offline-toggle");
+offlineToggle.checked = false;
+offlineToggle.addEventListener("change", function() {
+  offlineMode = this.checked;
+});
+function showOfflineSwitch(show) {
+  offlineSwitchArea.style.display = show ? "flex" : "none";
+}
+// Ana ekranda göster
+showOfflineSwitch(true);
+
 const mainMenu = document.getElementById("main-menu");
 const gameSetup = document.getElementById("game-setup");
 const menuMatch = document.getElementById("menu-match");
@@ -629,6 +874,7 @@ menuMatch.onclick = () => {
   document.getElementById("game-mode").value = "normal";
   document.getElementById("player-count-label").style.display = "none";
   renderPlayerInputs();
+  showOfflineSwitch(false); // Ana ekrandan çıkınca gizle
 };
 menuTournament.onclick = () => {
   mainMenu.style.display = "none";
@@ -636,6 +882,7 @@ menuTournament.onclick = () => {
   document.getElementById("game-mode").value = "tournament";
   document.getElementById("player-count-label").style.display = "";
   renderPlayerInputs();
+  showOfflineSwitch(false); // Ana ekrandan çıkınca gizle
 };
 menuHowToPlay.onclick = () => {
   document.getElementById("howtoplay-modal").style.display = "flex";
@@ -655,6 +902,7 @@ document.getElementById("logo-title").onclick = function() {
   document.getElementById("normal-match").style.display = "none";
   document.getElementById("bracket-modal").style.display = "none";
   document.getElementById("howtoplay-modal").style.display = "none";
+  showOfflineSwitch(true); // Ana ekrana dönünce göster
 };
 const gameModeSelect = document.getElementById("game-mode");
 const playerCountLabel = document.getElementById("player-count-label");
@@ -752,9 +1000,98 @@ function renderTurkishLetter(letter) {
   if (letter === "I") return '<span class="turkish-i">I</span>';
   return letter.toUpperCase();
 }
+const wordMeaningModal = document.getElementById("word-meaning-modal");
+const wordMeaningClose = document.getElementById("word-meaning-close");
+const wordMeaningTitle = document.getElementById("word-meaning-title");
+const wordMeaningContent = document.getElementById("word-meaning-content");
+wordMeaningClose.onclick = () => {
+  wordMeaningModal.style.display = "none";
+};
+window.addEventListener("click", function(event) {
+  if (event.target == wordMeaningModal) {
+    wordMeaningModal.style.display = "none";
+  }
+});
+async function fetchWordMeaning(word) {
+  try {
+    const res = await fetch("https://sozluk.gov.tr/gts?ara=" + encodeURIComponent(word));
+    if (!res.ok) return null;
+    const data = await res.json();
+    if (!Array.isArray(data) || data.length === 0) return null;
+    let meanings = [];
+    if (data[0].anlamlarListe) {
+      for (let anlamObj of data[0].anlamlarListe) {
+        meanings.push(anlamObj.anlam);
+      }
+    }
+    return meanings.length > 0 ? meanings : null;
+  } catch {
+    return null;
+  }
+}
+function showWordMeaning(word) {
+  wordMeaningTitle.textContent = word.toUpperCase();
+  wordMeaningContent.innerHTML = "Yükleniyor...";
+  wordMeaningModal.style.display = "flex";
+  fetchWordMeaning(word).then(meanings => {
+    if (!meanings) {
+      wordMeaningContent.innerHTML = "<span style='color:#bb1b1b;font-weight:500;'>Anlamı bulunamadı.</span>";
+    } else {
+      wordMeaningContent.innerHTML = meanings.map((m, idx) => `<div style="margin-bottom:7px;"><b>${idx+1}.</b> ${m}</div>`).join("");
+    }
+  });
+}
+const TURKISH_KEYBOARD = [
+  ['E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', 'Ğ', 'Ü'],
+  ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'Ş', 'İ'],
+  ['Z', 'C', 'V', 'B', 'N', 'M', 'Ö', 'Ç']
+];
+function getKeyboardState(board) {
+  const states = {};
+  for (const row of board) {
+    if (!row.guess) continue;
+    const guessArr = row.guess.toUpperCase().split('');
+    for (let i = 0; i < guessArr.length; i++) {
+      const letter = guessArr[i];
+      const color = row.feedback[i];
+      if (!states[letter]) states[letter] = color;
+      else {
+        if (color === 'green') states[letter] = 'green';
+        else if (color === 'yellow' && states[letter] !== 'green') states[letter] = 'yellow';
+        else if (color === 'gray' && states[letter] !== 'green' && states[letter] !== 'yellow') states[letter] = 'gray';
+      }
+    }
+  }
+  return states;
+}
+function renderKeyboard(container, board) {
+  container.innerHTML = '';
+  const states = getKeyboardState(board);
+  for (const row of TURKISH_KEYBOARD) {
+    const rowDiv = document.createElement('div');
+    rowDiv.className = 'keyboard-row';
+    for (const key of row) {
+      const keyDiv = document.createElement('div');
+      keyDiv.className = 'keyboard-key' + (states[key] ? ' ' + states[key] : '');
+      keyDiv.innerHTML = key;
+      rowDiv.appendChild(keyDiv);
+    }
+    container.appendChild(rowDiv);
+  }
+}
+function renderBoardWithKeyboard(container, board, keyboardContainer, keyboardVisible) {
+  renderBoard(container, board);
+  if (keyboardVisible) {
+    renderKeyboard(keyboardContainer, board);
+    keyboardContainer.style.display = '';
+  } else {
+    keyboardContainer.style.display = 'none';
+  }
+}
 function renderBoard(container, board) {
   container.innerHTML = "";
-  for (let row of board) {
+  for (let rowIdx = 0; rowIdx < board.length; rowIdx++) {
+    const row = board[rowIdx];
     const rowDiv = document.createElement("div");
     rowDiv.className = "row";
     for (let i = 0; i < row.guess.length; i++) {
@@ -762,6 +1099,17 @@ function renderBoard(container, board) {
       tile.className = "tile " + row.feedback[i];
       tile.innerHTML = renderTurkishLetter(row.guess[i]);
       rowDiv.appendChild(tile);
+    }
+    if (!offlineMode) {
+      const meaningBtn = document.createElement("button");
+      meaningBtn.className = "meaning-icon";
+      meaningBtn.innerHTML = "?";
+      meaningBtn.title = row.guess;
+      meaningBtn.onclick = (e) => {
+        e.stopPropagation();
+        showWordMeaning(row.guess);
+      };
+      rowDiv.appendChild(meaningBtn);
     }
     container.appendChild(rowDiv);
   }
@@ -830,6 +1178,7 @@ function showNextMatch() {
   });
 }
 async function turkceKelimeVarMi(kelime) {
+  if (offlineMode) return true;
   try {
     const response = await fetch("https://sozluk.gov.tr/gts?ara=" + encodeURIComponent(kelime));
     if (!response.ok) return false;
@@ -898,6 +1247,12 @@ function createMatchBlock(player1, player2, container, onComplete) {
       <div id="guess-phase" style="display:none;">
         <div id="guess-turn"></div>
         <div id="match-board"></div>
+        <div id="guess-timer"></div>
+        <div class="keyboard-controls-row" id="guess-action-row" style="margin-bottom:10px;">
+          <button id="giveup-btn">Pes Et</button>
+          <button id="toggle-keyboard-btn">Klavyeyi Kapat</button>
+        </div>
+        <div id="keyboard-area" class="keyboard"></div>
         <div class="guess-area">
           <input type="text" id="guess-input" class="guess-input" maxlength="${wordLength}" autocomplete="off">
           <button id="guess-btn"><span style="font-size:1.1em;">🔎</span> Tahmin Et</button>
@@ -948,13 +1303,10 @@ function startGuessPhase(p1, p2, secretWords, container, onComplete) {
   const guessFeedback = container.querySelector("#guess-feedback");
   const matchBoard = container.querySelector("#match-board");
   const matchResultArea = container.querySelector("#match-result-area");
-  let timerDiv = document.createElement("div");
-  timerDiv.id = "guess-timer";
-  guessPhase.insertBefore(timerDiv, guessFeedback);
-  let giveUpBtn = document.createElement("button");
-  giveUpBtn.id = "giveup-btn";
-  giveUpBtn.textContent = "Pes Et";
-  guessPhase.insertBefore(giveUpBtn, guessFeedback);
+  const keyboardArea = container.querySelector("#keyboard-area");
+  const giveUpBtn = document.getElementById("giveup-btn");
+  const toggleKeyboardBtn = document.getElementById("toggle-keyboard-btn");
+  const guessTimer = document.getElementById("guess-timer");
   let boards = [[], []];
   let tries = [0, 0];
   let found = [false, false];
@@ -966,6 +1318,7 @@ function startGuessPhase(p1, p2, secretWords, container, onComplete) {
   let timerInterval = null;
   let playerTimes = [0, 0];
   let playerTimerStarted = [false, false];
+  let keyboardVisible = true;
   function formatTime(sec) {
     const m = Math.floor(sec / 60);
     const s = sec % 60;
@@ -974,10 +1327,10 @@ function startGuessPhase(p1, p2, secretWords, container, onComplete) {
   function updateTimer() {
     if (finished) return;
     timerSeconds++;
-    timerDiv.textContent = `Geçen Süre: ${formatTime(timerSeconds)}`;
+    guessTimer.textContent = `Geçen Süre: ${formatTime(timerSeconds)}`;
   }
   function startTimer() {
-    timerDiv.textContent = `Geçen Süre: 0sn`;
+    guessTimer.textContent = `Geçen Süre: 0sn`;
     clearInterval(timerInterval);
     timerSeconds = 0;
     timerInterval = setInterval(updateTimer, 1000);
@@ -993,18 +1346,20 @@ function startGuessPhase(p1, p2, secretWords, container, onComplete) {
   function resetTimer() {
     stopTimer();
     timerSeconds = 0;
-    timerDiv.textContent = `Geçen Süre: 0sn`;
+    guessTimer.textContent = `Geçen Süre: 0sn`;
   }
   function updateUI() {
     guessTurn.textContent = `${activePlayer === 0 ? p1.name : p2.name} tahmin yapıyor`;
-    renderBoard(matchBoard, boards[activePlayer]);
+    renderBoardWithKeyboard(matchBoard, boards[activePlayer], keyboardArea, keyboardVisible);
     guessInput.value = "";
     guessInput.maxLength = wordLength;
     guessInput.focus();
     guessFeedback.textContent = "";
     matchResultArea.innerHTML = "";
-    timerDiv.textContent = `Geçen Süre: ${formatTime(timerSeconds)}`;
+    guessTimer.textContent = `Geçen Süre: ${formatTime(timerSeconds)}`;
     giveUpBtn.style.display = "";
+    toggleKeyboardBtn.textContent = keyboardVisible ? "Klavyeyi Kapat" : "Klavyeyi Aç";
+    toggleKeyboardBtn.style.display = "";
   }
   giveUpBtn.onclick = () => {
     if (finished) return;
@@ -1034,10 +1389,15 @@ function startGuessPhase(p1, p2, secretWords, container, onComplete) {
     guessBtn.disabled = true;
     guessInput.disabled = true;
     giveUpBtn.style.display = "none";
+    toggleKeyboardBtn.style.display = "none";
     document.getElementById("continue-btn").onclick = () => {
       if (gameMode === "tournament") onComplete(winner, loser);
       else onComplete();
     };
+  };
+  toggleKeyboardBtn.onclick = () => {
+    keyboardVisible = !keyboardVisible;
+    updateUI();
   };
   async function handleGuess() {
     if (finished) return;
@@ -1047,7 +1407,11 @@ function startGuessPhase(p1, p2, secretWords, container, onComplete) {
       return;
     }
     guessFeedback.textContent = "Kelime kontrol ediliyor...";
-    if (!(await turkceKelimeVarMi(guess))) {
+    let kelimeGecerli = true;
+    if (!offlineMode) {
+      kelimeGecerli = await turkceKelimeVarMi(guess);
+    }
+    if (!kelimeGecerli) {
       guessFeedback.textContent = "Bu kelime Türkçe sözlükte yok!";
       return;
     }
@@ -1058,7 +1422,7 @@ function startGuessPhase(p1, p2, secretWords, container, onComplete) {
     tries[activePlayer]++;
     const feedback = getFeedback(guess, secretWords[1 - activePlayer]);
     boards[activePlayer].push({ guess, feedback });
-    renderBoard(matchBoard, boards[activePlayer]);
+    renderBoardWithKeyboard(matchBoard, boards[activePlayer], keyboardArea, keyboardVisible);
     if (guess === secretWords[1 - activePlayer]) {
       found[activePlayer] = true;
       stopTimer();
@@ -1071,7 +1435,7 @@ function startGuessPhase(p1, p2, secretWords, container, onComplete) {
         setTimeout(() => {
           boards[1] = [];
           tries[1] = 0;
-          renderBoard(matchBoard, boards[1]);
+          renderBoardWithKeyboard(matchBoard, boards[1], keyboardArea, keyboardVisible);
           updateUI();
           startTime = null;
         }, 1300);
@@ -1124,6 +1488,7 @@ function startGuessPhase(p1, p2, secretWords, container, onComplete) {
         guessBtn.disabled = true;
         guessInput.disabled = true;
         giveUpBtn.style.display = "none";
+        toggleKeyboardBtn.style.display = "none";
         document.getElementById("continue-btn").onclick = () => {
           if (gameMode === "tournament") onComplete(winner, loser);
           else onComplete();
@@ -1138,65 +1503,6 @@ function startGuessPhase(p1, p2, secretWords, container, onComplete) {
     if (e.key === "Enter") handleGuess();
   });
   updateUI();
-}
-function drawSvgBracket() {
-  const svg = document.getElementById('svg-bracket');
-  const container = document.getElementById('svg-bracket-container');
-  const rounds = bracketGames.length;
-  const matchesFirst = bracketGames[0]?.length || 1;
-  const width = Math.max(500, rounds * 150);
-  const height = Math.max(330, matchesFirst * 60 + 40);
-  svg.setAttribute('width', width);
-  svg.setAttribute('height', height);
-  svg.innerHTML = '';
-  const hGap = 120;
-  const vGap = 60;
-  const boxH = 24;
-  const boxW = 90;
-  for (let r=0; r<rounds; r++) {
-    const matches = bracketGames[r];
-    const matchGap = vGap * Math.pow(2, r);
-    for (let m=0; m<matches.length; m++) {
-      const x = r * hGap + 20;
-      const y = (m * Math.pow(2, r) + 0.5) * vGap + 30;
-      let p1 = matches[m].p1 || "?";
-      let p2 = matches[m].p2 || "?";
-      let winner = matches[m].winner;
-      if (r < bracketGames.length-1) {
-        const nextX = (r+1)*hGap + 20;
-        const nextY = ((Math.floor(m/2)*Math.pow(2,r+1)) + Math.pow(2,r)/2 + 0.5) * vGap + 30;
-        svg.innerHTML += `<line x1="${x+boxW}" y1="${y}" x2="${nextX}" y2="${nextY}" stroke="#b0b4ba" stroke-width="2"/>`;
-      }
-      svg.innerHTML += `<rect x="${x}" y="${y-boxH/2}" width="${boxW}" height="${boxH}" rx="7" fill="#fff" stroke="#b0b4ba" stroke-width="2"/>`;
-      svg.innerHTML += `<text x="${x+boxW/2}" y="${y-5}" class="svg-bracket-text${winner===p1?' svg-bracket-winner':''}${p1==='?'?' svg-bracket-current':''}">${p1}</text>`;
-      svg.innerHTML += `<rect x="${x}" y="${y+boxH/2}" width="${boxW}" height="${boxH}" rx="7" fill="#fff" stroke="#b0b4ba" stroke-width="2"/>`;
-      svg.innerHTML += `<text x="${x+boxW/2}" y="${y+boxH/2+boxH/2-5}" class="svg-bracket-text${winner===p2?' svg-bracket-winner':''}${p2==='?'?' svg-bracket-current':''}">${p2}</text>`;
-    }
-    let roundTitle = getRoundName(r+1, bracketPlayers.length);
-    svg.innerHTML += `<text x="${r*hGap+20+boxW/2}" y="18" font-size="14" fill="#3267d6" font-weight="600" text-anchor="middle">${roundTitle}</text>`;
-  }
-}
-showBracketBtn.onclick = () => {
-  drawSvgBracket();
-  bracketModal.style.display = "flex";
-};
-bracketClose.onclick = () => {
-  bracketModal.style.display = "none";
-};
-window.onclick = function(event) {
-  if (event.target == bracketModal) {
-    bracketModal.style.display = "none";
-  }
-};
-function shuffle(arr) {
-  for (let i = arr.length-1; i>0; i--) {
-    let j = Math.floor(Math.random()*(i+1));
-    [arr[i], arr[j]] = [arr[j], arr[i]];
-  }
-  return arr;
-}
-function validateWord(word) {
-  return word.length === wordLength && /^[a-zA-ZçğıöşüÇĞİÖŞÜ]+$/.test(word);
 }
 function getFeedback(guess, answer) {
   let feedback = Array(wordLength).fill("gray");
@@ -1219,6 +1525,9 @@ function getFeedback(guess, answer) {
   }
   return feedback;
 }
+function validateWord(word) {
+  return word.length === wordLength && /^[a-zA-ZçğıöşüÇĞİÖŞÜ]+$/.test(word);
+}
 </script>
 </body>
-</html>
+</html><style></style><script></script>
